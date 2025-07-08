@@ -92,14 +92,14 @@ This hybrid approach leverages PostgreSQL for reliable, transactional data stora
 
 Use the following default accounts to log in and explore the system:
 
-| Role      | Username   | Password    | Description                      |
-|-----------|------------|-------------|---------------------------------|
-| Admin     | admin      | admin       | Full system access and user management |
+| Role      | Username   | Password    | Description                               |
+|-----------|------------|-------------|-------------------------------------------|
+| Admin     | admin      | adminpass   | Full system access and user management    |
 | Doctor 1  | drsmith    | docpass     | Doctor with patient management privileges |
-| Doctor 2  | drjones    | docpass2    | Another doctor user              |
-| Patient 1 | johndoe    | patientpass | Patient user with appointment booking |
-| Patient 2 | janeroe    | patientpass2| Another patient user             |
-| Patient 3 | bobsmith   | patientpass3| Additional patient user          |
+| Doctor 2  | drjones    | docpass2    | Another doctor user                       |
+| Patient 1 | johndoe    | patientpass | Patient user with appointment booking     |
+| Patient 2 | janeroe    | patientpass2| Another patient user                      |
+| Patient 3 | bobsmith   | patientpass3| Additional patient user                   |
 
 ---
 
