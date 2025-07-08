@@ -1,0 +1,43 @@
+<!-- fragments/nav.html -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top shadow" th:fragment="nav"
+     xmlns:sec="http://www.w3.org/1999/xhtml">
+    <div class="container-fluid">
+        <a class="navbar-brand d-flex align-items-center" th:href="@{/}">
+            <i class="bi bi-hospital me-2"></i> Healthcare System
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link" th:href="@{/}">Dashboard</a></li>
+                <li class="nav-item" sec:authorize="hasAnyRole('ADMIN','DOCTOR')">
+                    <a class="nav-link" th:href="@{/patients}">Patients</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasAnyRole('ADMIN','DOCTOR')">
+                    <a class="nav-link" th:href="@{/add-patient}">Add Patient</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('PATIENT')">
+                    <a class="nav-link" th:href="@{/patient/appointments}">My Appointments</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('DOCTOR')">
+                    <a class="nav-link" th:href="@{/doctor/appointments}">Doctor Appointments</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                    <a class="nav-link" th:href="@{/admin/users}">Manage Users</a>
+                </li>
+            </ul>
+            <div class="d-flex align-items-center" sec:authorize="isAuthenticated()">
+                <span class="text-white me-3">
+                    <i class="bi bi-person-circle"></i>
+                    <span th:text="${#authentication.name}">User</span>
+                </span>
+                <form th:action="@{/logout}" method="post" class="d-inline">
+                    <button class="btn btn-danger btn-sm" type="submit">
+                        <i class="bi bi-box-arrow-right"></i> Logout
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</nav>

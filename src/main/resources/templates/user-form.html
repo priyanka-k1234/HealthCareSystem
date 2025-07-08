@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add/Edit User</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body class="bg-light">
+<div th:replace="~{fragments/nav :: nav}"></div>
+<div class="container py-5">
+    <div class="mb-3">
+        <a href="javascript:history.back()" class="btn btn-outline-secondary me-2"><i class="bi bi-arrow-left"></i> Back</a>
+        <a th:href="@{/}" class="btn btn-outline-primary"><i class="bi bi-house"></i> Home</a>
+    </div>
+    <div class="card shadow-sm mx-auto" style="max-width: 500px;">
+        <div class="card-body">
+            <h2 class="mb-4 text-primary">
+                <i class="bi bi-person-badge"></i>
+                <span th:text="${user.id != null ? 'Edit User' : 'Add User'}"></span>
+            </h2>
+
+            <!-- Add User Form -->
+            <form th:if="${user.id} == null" th:action="@{/admin/add-user}" th:object="${user}" method="post">
+                <div class="mb-3">
+                    <label class="form-label">Username</label>
+                    <input type="text" th:field="*{username}" class="form-control" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" th:field="*{email}" class="form-control" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">First Name</label>
+                    <input type="text" th:field="*{firstName}" class="form-control" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Last Name</label>
+                    <input type="text" th:field="*{lastName}" class="form-control" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Role</label>
+                    <select th:field="*{role}" class="form-select" required>
+                        <option value="">Select</option>
+                        <option value="ADMIN">ADMIN</option>
+                        <option value="DOCTOR">DOCTOR</option>
+                        <option value="PATIENT">PATIENT</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="password" name="rawPassword" class="form-control" placeholder="Password" required />
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Add</button>
+            </form>
+
+            <!-- Edit User Form -->
+            <form th:if="${user.id} != null" th:action="@{'/admin/edit-user/' + ${user.id}}" th:object="${user}" method="post">
+                <input type="hidden" th:field="*{id}" />
+                <div class="mb-3">
+                    <label class="form-label">Username</label>
+                    <input type="text" th:field="*{username}" class="form-control" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" th:field="*{email}" class="form-control" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">First Name</label>
+                    <input type="text" th:field="*{firstName}" class="form-control" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Last Name</label>
+                    <input type="text" th:field="*{lastName}" class="form-control" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Role</label>
+                    <select th:field="*{role}" class="form-select" required>
+                        <option value="">Select</option>
+                        <option value="ADMIN" th:selected="${user.role == 'ADMIN'}">ADMIN</option>
+                        <option value="DOCTOR" th:selected="${user.role == 'DOCTOR'}">DOCTOR</option>
+                        <option value="PATIENT" th:selected="${user.role == 'PATIENT'}">PATIENT</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="password" name="rawPassword" class="form-control"
+                           placeholder="Leave blank to keep current password" />
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Update</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

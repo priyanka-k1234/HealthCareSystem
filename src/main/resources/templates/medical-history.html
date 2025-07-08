@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Medical History</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body class="bg-light">
+<div th:replace="~{fragments/nav :: nav}"></div>
+<div class="container py-5">
+    <div class="mb-3">
+        <a href="javascript:history.back()" class="btn btn-outline-secondary me-2"><i class="bi bi-arrow-left"></i> Back</a>
+        <a th:href="@{/}" class="btn btn-outline-primary"><i class="bi bi-house"></i> Home</a>
+    </div>
+    <div class="card shadow-sm mx-auto" style="max-width: 700px;">
+        <div class="card-body">
+            <h2 class="mb-4 text-primary"><i class="bi bi-journal-medical"></i> Medical History</h2>
+            <div th:if="${history == null}">
+                <div class="alert alert-warning">No medical history found for this patient.</div>
+            </div>
+            <div th:if="${history != null}">
+                <div class="mb-3">
+                    <b>Allergies:</b>
+                    <ul class="list-group list-group-flush" th:if="${history.allergies != null}">
+                        <li class="list-group-item" th:each="a : ${history.allergies}" th:text="${a}"></li>
+                    </ul>
+                </div>
+                <div class="mb-3">
+                    <b>Conditions:</b>
+                    <ul class="list-group list-group-flush" th:if="${history.conditions != null}">
+                        <li class="list-group-item" th:each="c : ${history.conditions}" th:text="${c}"></li>
+                    </ul>
+                </div>
+                <div class="mb-3" th:if="${history.medications != null}">
+                    <b>Medications:</b>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item" th:each="m : ${history.medications}">
+                            <span th:text="${m.name}"></span>
+                            <span class="text-muted" th:text="' (' + ${m.dosage} + ', ' + ${m.frequency} + ')'"></span>
+                            <span class="text-muted" th:if="${m.prescribedBy != null}"> - Prescribed by <span th:text="${m.prescribedBy}"></span></span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="mb-3" th:if="${history.surgeries != null}">
+                    <b>Surgeries:</b>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item" th:each="s : ${history.surgeries}">
+                            <span th:text="${s.name}"></span>
+                            <span class="text-muted" th:if="${s.date != null}"> on <span th:text="${#dates.format(s.date, 'yyyy-MM-dd')}"></span></span>
+                            <span class="text-muted" th:if="${s.hospital != null}"> at <span th:text="${s.hospital}"></span></span>
+                            <span class="text-muted" th:if="${s.notes != null}"> - <span th:text="${s.notes}"></span></span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="mb-3">
+                    <b>Last Updated:</b>
+                    <span th:text="${#dates.format(history.lastUpdated, 'yyyy-MM-dd HH:mm')}"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>
