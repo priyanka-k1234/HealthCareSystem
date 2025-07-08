@@ -62,7 +62,7 @@ This hybrid approach leverages PostgreSQL for reliable, transactional data stora
    spring.jpa.hibernate.ddl-auto=update
    spring.jpa.show-sql=true
 
-   server.port=8080
+   server.port=8081
    ```
 
 3. **Ensure databases are running:**
@@ -84,7 +84,7 @@ This hybrid approach leverages PostgreSQL for reliable, transactional data stora
 
 6. **Access the application:**
 
-   Open your browser and navigate to `http://localhost:8080`.
+   Open your browser and navigate to `http://localhost:8081`.
 
 ---
 
